@@ -15,6 +15,15 @@
    - Visualize modes  
    - Check eigenvalue stability
 
+4. Iterative Koopman Forecasting + CTM Correction
+   - Builds Koopman models from a rolling window of traffic snapshots
+   - Predicts traffic speeds step-by-step
+   - Applies CTM after each step to ensure physical consistency
+
+5. Forecast Accuracy Analysis
+   - Computes TMAE (Time-Mean Absolute Error) and SMAE (Space-Mean Absolute Error)
+   - Generates comparative histograms of actual vs. forecasted speeds
+
 > Note: Actual speed/flow/density values and link IDs are replaced with dummy data for Mobiliti data privacy.
 
 ## File Structure
