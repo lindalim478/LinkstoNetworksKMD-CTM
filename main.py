@@ -7,6 +7,7 @@ from shapely import wkt
 from data_preparation import addNodeGeom, filter_data_for_corridors
 from ctm import apply_ctm
 from Koopman_H_DMD import run_koopman_modes, check_stability
+from forecast_and_analysis import koopman_ctm_iterative_forecast, analyze_koopman_forecast_accuracy
 
 def main():
     # 1) Load Node & Link data
@@ -90,3 +91,60 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# Run Koopman iterative forecast
+forecast_results = koopman_ctm_iterative_forecast(
+    downtown_gdf=downtown_gdf,
+    mid_gdf=mid_gdf,
+    outer_gdf=outer_gdf,
+    nodes=nodes_definition,
+    speeds_file=fspeeds,
+    flow_file=fflows,
+    density_file=fdens,
+    delay=8,
+    prediction_horizon=4,
+    start_time_idx=48,
+    dt=30,
+    propagation_steps=3,
+    time_col_start_idx=0,
+    window_size=48,
+    verbose=True
+)
+
+# Load actual and forecasted speeds for accuracy analysis
+corridors = ["downtown", "mid", "outer"]
+actual_speeds_dict = {}
+forecasted_speeds_dict = {}
+
+forecasted_df = pd.read_csv("koopman_ctm_forecasted_speeds.csv").set_index("link_id")
+
+for corridor in ["downtown", "mid", "outer"]:
+    actual_file = f"{corridor}_updated_speeds.csv"
+    actual_df = pd.read_csv(actual_file).set_index("link_id")
+
+    if len(actual_df.columns) > 1:
+        actual_df = actual_df.iloc[:, 1:]
+    if len(forecasted_df.columns) > 1:
+        forecasted_trim = forecasted_df.iloc[:, 1:]
+    else:
+        forecasted_trim = forecasted_df
+
+    common_links = set(actual_df.index).intersection(set(forecasted_trim.index))
+    if not common_links:
+        print(f"No common links for {corridor}")
+        continue
+
+    act_c = actual_df.loc[list(common_links)]
+    fct_c = forecasted_trim.loc[list(common_links)]
+
+    common_cols = set(act_c.columns).intersection(fct_c.columns)
+    act_c = act_c[sorted(common_cols)]
+    fct_c = fct_c[sorted(common_cols)]
+
+    actual_speeds_dict[corridor] = act_c
+    forecasted_speeds_dict[corridor] = fct_c
+
+print("Running forecast accuracy analysis...")
+analyze_koopman_forecast_accuracy(actual_speeds_dict, forecasted_speeds_dict)
+
+
