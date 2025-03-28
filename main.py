@@ -6,7 +6,7 @@ from shapely import wkt
 
 from data_preparation import addNodeGeom, filter_data_for_corridors
 from ctm import apply_ctm
-from koopman import run_koopman_modes, check_stability
+from Koopman_H_DMD import run_koopman_modes, check_stability
 
 def main():
     # 1) Load Node & Link data
