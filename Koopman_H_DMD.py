@@ -1,6 +1,9 @@
+import pandas as pd
 import numpy as np
+import os
 import matplotlib.pyplot as plt
 from numpy.linalg import svd, eig, pinv
+from mpl_toolkits.mplot3d import Axes3D 
 
 def H_DMD(X, delay):
     """
@@ -39,10 +42,6 @@ def run_koopman_modes(
     Runs Hankel-DMD on a speed dataset to extract Koopman modes/eigenvalues,
     and saves 3D plots of modes over position & time.
     """
-    import os
-    import pandas as pd
-    import matplotlib.pyplot as plt
-    from mpl_toolkits.mplot3d import Axes3D  # for 3D plots
 
     df_vel = pd.read_csv(csv_file)
     df_vel.set_index("link_id", inplace=True)
