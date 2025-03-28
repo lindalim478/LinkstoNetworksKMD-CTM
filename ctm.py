@@ -13,7 +13,7 @@ def propagate_upstream(
         return
 
     links_to_update = upstream_links[link_id]
-    current_length = link_props[link_id].get("LENGTH(meters)", 100) if link_id in link_props else 100
+    current_length = link_props[link_id].get("LENGTH(meters)")
     accumulated_distance = 0
     prop_factor = scale_factor
 
@@ -65,7 +65,7 @@ def propagate_downstream(
 
     links_to_update = downstream_links[link_id]
     current_flow    = current_flows[link_id]
-    current_length  = link_props[link_id].get("LENGTH(meters)", 100) if link_id in link_props else 100
+    current_length  = link_props[link_id].get("LENGTH(meters)")
     accumulated_distance = 0
     prop_factor = 1.0
 
