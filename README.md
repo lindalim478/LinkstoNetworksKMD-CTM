@@ -1,1 +1,26 @@
 # LinkstoNetworksKMD-CTM
+
+1. Data Preparation 
+   - Reading CSV/Excel files  
+   - Creating link geometries  
+   - Filtering data to relevant corridors
+
+2. Cell Transmission Model (CTM) 
+   - Uses node-based constraints  
+   - Link-Specific Jam Density
+   - Propagates congestion upstream/downstream with exponential distance decay
+
+3. Koopman Decomposition 
+   - Hankel-DMD approach  
+   - Visualize modes  
+   - Check eigenvalue stability
+
+> Note: Actual speed/flow/density values and link IDs are replaced with dummy data for Mobiliti data privacy.
+
+## File Structure
+
+- data_preparation.py: Functions for merging node geometry, filtering corridor data, sorting geodata, etc.  
+- ctm.py: Main CTM logic (apply_ctm) plus `propagate_upstream` / `propagate_downstream`.  
+- koopman.py: Hankel-DMD methods, Koopman modes, eigenvalue stability checks.  
+- main.py: Ties everything together, loads data, runs filtering, CTM, and Koopman.  
+- data/: Example CSV/Excel files (with dummy or masked data).
