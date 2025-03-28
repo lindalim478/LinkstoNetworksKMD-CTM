@@ -10,7 +10,7 @@
    - Link-Specific Jam Density
    - Propagates congestion upstream/downstream with exponential distance decay
 
-3. Koopman Decomposition 
+3. Koopman Decomposition H_DMD
    - Hankel-DMD approach  
    - Visualize modes  
    - Check eigenvalue stability
