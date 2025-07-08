@@ -1,9 +1,11 @@
 # LinkstoNetworksKMD-CTM
 
-1. Data Preparation 
+1. Data Preparation/Preprocessing
    - Reading CSV/Excel files  
-   - Creating link geometries  
-   - Filtering data to relevant corridors
+   - Creating link geometries
+   - Filter data to relevnt corridors
+   - Align Link IDs between speed dataset and City Network layout file
+   - Remove NaN entries
 
 2. Cell Transmission Model (CTM) 
    - Uses node-based constraints  
