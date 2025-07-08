@@ -3,7 +3,7 @@
 1. Data Preparation/Preprocessing
    - Reading CSV/Excel files  
    - Creating link geometries
-   - Filter data to relevnt corridors
+   - Filter data to relevent corridors
    - Align Link IDs between speed dataset and City Network layout file
    - Remove NaN entries
 
