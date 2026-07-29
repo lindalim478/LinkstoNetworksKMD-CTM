@@ -17,11 +17,32 @@ constraining it with traffic-flow physics. After every forecast step, a
 congestion-propagation behavior on the road graph, so short-horizon speed
 forecasts stay both accurate **and** physically consistent.
 
-## Approach
+## Study area & data
 
-The pipeline runs on a real urban road network (San Francisco), evaluated on
-three corridors — **downtown**, **mid**, and **outer** loops — each defined as an
-ordered set of links with geometry and length.
+The pipeline runs on the **San Jose, CA** freeway network, using traffic data
+drawn from both real-world and simulation sources — **Caltrans PeMS**,
+**Mobiliti**, **MATSim**, and **SUMO**. Rather than studying arterials in
+isolation, the network is treated as a fully interconnected system, so that
+congestion propagation *between* corridors is preserved instead of being lost to
+fragmented, corridor-by-corridor management.
+
+![Data sources and the corridor-by-corridor vs. network-integrated view](figures/data_sources_and_analysis.png)
+
+Analysis is organized around three freeway **loops**, joined at **node exchange
+zones** where flow transfers between them:
+
+- **Downtown Loop** — the San Jose downtown loop formed by **I-101**, **I-280**,
+  and **I-880**.
+- **Mid Corridor** — **I-237**, **I-101**, **I-85**, and **I-280** through
+  Mountain View, Sunnyvale, Santa Clara, and Cupertino.
+- **Outer Corridor** — **I-237** and **I-880** out toward Milpitas, including the
+  **I-880 → I-101** interchange.
+
+![San Jose study corridors: Downtown, Mid, and Outer freeway loops with node exchange zones](figures/study_corridors_sanjose.png)
+
+## Method
+
+Each corridor is an ordered set of freeway links with geometry and length.
 
 **1. Data preparation.** Link geometries are built from node coordinates, link
 IDs are aligned between the speed dataset and the network layout, corridors are
@@ -49,6 +70,24 @@ correct → advance" loop is what keeps multi-step forecasts stable.
 overall **MAE/RMSE** (in mph), plus per-corridor histograms of observed vs.
 forecasted speeds.
 
+## Koopman modes & CTM effect
+
+![KMD modes before and after CTM for the Downtown, Mid, and Outer corridors](figures/koopman_modes_before_after_ctm.png)
+
+*KMD results extracted from traffic data across the network: Downtown (a–f), Mid
+Corridor (g–l), and Outer Corridor (m–r). The modes reveal distinct
+spatiotemporal congestion patterns, including strong AM and PM peaks (panels
+a–c), indicative of commuter-driven congestion cycles. Specific freeway
+interchanges, notably the I-880 to I-101 merge, exhibit clear bottlenecks
+characterized by pronounced spikes or amplitude reductions (panels m, n, o).
+Applying CTM visibly reduces mode amplitudes for the Downtown loop and Mid
+Corridor, enforcing realistic traffic dynamics and highlighting critical
+congestion points (panels d–f and j–l). Interestingly, for the Outer Corridor
+(panels p–r), amplitude increases are observed following CTM integration,
+highlighting previously underestimated congestion bottlenecks and congestion
+dynamics. Overall, these modes illustrate the nuanced propagation of congestion
+waves across a networked freeway system.*
+
 ## Demo
 
 `video/TrafficSpeedDynamics.mp4` shows the forecasted network speed dynamics
@@ -56,10 +95,11 @@ evolving over time across the corridors.
 
 ## Data & privacy
 
-> The traffic data originates from **Mobiliti**. Actual speed/flow/density
-> values and link IDs in this repository are replaced with **dummy/masked data**
-> to respect Mobiliti's data-privacy terms. The code and pipeline are the
-> contribution here; plug in real feeds to reproduce quantitative results.
+> Traffic data is drawn from a mix of real-world and simulation sources
+> (Caltrans PeMS, Mobiliti, MATSim, SUMO). Actual speed/flow/density values and
+> link IDs in this repository are replaced with **dummy/masked data** to respect
+> Mobiliti's data-privacy terms. The code and pipeline are the contribution here;
+> plug in real feeds to reproduce quantitative results.
 
 ## Repository structure
 
@@ -72,6 +112,7 @@ evolving over time across the corridors.
 | `main.py` | End-to-end driver: load data → filter corridors → CTM → Koopman modes → iterative forecast. |
 | `data/` | Example network + time-series files (dummy/masked values). |
 | `video/` | Traffic speed-dynamics animation. |
+| `figures/` | Study-area map, data-source diagram, and Koopman-mode figures. |
 
 ## Running it
 
