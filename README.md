@@ -3,6 +3,8 @@
 **Physics-consistent, data-driven traffic-speed forecasting on a road network —
 Koopman/Hankel-DMD paired with a Cell Transmission Model (CTM) correction step.**
 
+📄 **Published paper:** [IEEE Xplore — doc/11423187](https://ieeexplore.ieee.org/document/11423187)
+
 ## Motivation
 
 Purely data-driven forecasters (Koopman/DMD, and neural models alike) are good
