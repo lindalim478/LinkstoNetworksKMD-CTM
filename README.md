@@ -28,7 +28,9 @@ isolation, the network is treated as a fully interconnected system, so that
 congestion propagation *between* corridors is preserved instead of being lost to
 fragmented, corridor-by-corridor management.
 
-![Data sources and the corridor-by-corridor vs. network-integrated view](figures/data_sources_and_analysis.png)
+<p align="center">
+  <img src="figures/data_sources_and_analysis.png" width="480" alt="Data sources and the corridor-by-corridor vs. network-integrated view">
+</p>
 
 Analysis is organized around three freeway **loops**, joined at **node exchange
 zones** where flow transfers between them:
@@ -40,7 +42,9 @@ zones** where flow transfers between them:
 - **Outer Corridor** — **I-237** and **I-880** out toward Milpitas, including the
   **I-880 → I-101** interchange.
 
-![San Jose study corridors: Downtown, Mid, and Outer freeway loops with node exchange zones](figures/study_corridors_sanjose.png)
+<p align="center">
+  <img src="figures/study_corridors_sanjose.png" width="680" alt="San Jose study corridors: Downtown, Mid, and Outer freeway loops with node exchange zones">
+</p>
 
 ## Method
 
@@ -74,7 +78,9 @@ forecasted speeds.
 
 ## Koopman modes & CTM effect
 
-![KMD modes before and after CTM for the Downtown, Mid, and Outer corridors](figures/koopman_modes_before_after_ctm.png)
+<p align="center">
+  <img src="figures/koopman_modes_before_after_ctm.png" width="600" alt="KMD modes before and after CTM for the Downtown, Mid, and Outer corridors">
+</p>
 
 *KMD results extracted from traffic data across the network: Downtown (a–f), Mid
 Corridor (g–l), and Outer Corridor (m–r). The modes reveal distinct
